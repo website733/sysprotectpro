@@ -67,10 +67,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     WNDCLASS wc = {0};
     wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = "SecurityTester";
+    wc.lpszClassName = "SysProtectPro";
     RegisterClass(&wc);
     
-    HWND hWnd = CreateWindow(wc.lpszClassName, "Security Tester XP", WS_OVERLAPPEDWINDOW,
+    HWND hWnd = CreateWindow(wc.lpszClassName, "SysProtectPro", WS_OVERLAPPEDWINDOW,
                              CW_USEDEFAULT, CW_USEDEFAULT, 360, 320,
                              NULL, NULL, hInstance, NULL);
     
