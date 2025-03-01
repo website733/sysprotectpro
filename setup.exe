@@ -1,0 +1,87 @@
+#include <windows.h>
+#include <winsock2.h>
+#include <iphlpapi.h>
+#include <stdio.h>
+#pragma comment(lib, "iphlpapi.lib")
+#pragma comment(lib, "ws2_32.lib")
+
+#define ID_BUTTON_SCAN 1
+HWND hEdit;
+
+void RunSecurityCheck(HWND hWnd) {
+    SetWindowText(hEdit, "Début de l'analyse...\r\n");
+    Sleep(1000); 
+    
+    // Vérification des ports ouverts
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2,2), &wsaData) == 0) {
+        char buffer[512];
+        snprintf(buffer, sizeof(buffer), "\r\nPorts ouverts détectés :\r\n");
+        SendMessage(hEdit, EM_REPLACESEL, 0, (LPARAM)buffer);
+        WSACleanup();
+    }
+    
+    // Vérification des connexions actives
+    PMIB_TCPTABLE pTcpTable;
+    DWORD dwSize = 0;
+    pTcpTable = (MIB_TCPTABLE *) malloc(sizeof(MIB_TCPTABLE));
+    if (pTcpTable) {
+        if (GetTcpTable(pTcpTable, &dwSize, TRUE) == ERROR_INSUFFICIENT_BUFFER) {
+            free(pTcpTable);
+            pTcpTable = (MIB_TCPTABLE *) malloc(dwSize);
+        }
+        if (pTcpTable && GetTcpTable(pTcpTable, &dwSize, TRUE) == NO_ERROR) {
+            char buffer[256];
+            snprintf(buffer, sizeof(buffer), "Connexions TCP actives: %lu\r\n", pTcpTable->dwNumEntries);
+            SendMessage(hEdit, EM_REPLACESEL, 0, (LPARAM)buffer);
+        }
+        free(pTcpTable);
+    }
+    
+    SendMessage(hEdit, EM_REPLACESEL, 0, (LPARAM)"Analyse terminée.\r\n");
+}
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
+    switch (message) {
+        case WM_CREATE:
+            CreateWindow("BUTTON", "Analyser", WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+                         20, 20, 100, 30, hWnd, (HMENU)ID_BUTTON_SCAN, GetModuleHandle(NULL), NULL);
+            hEdit = CreateWindow("EDIT", "", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_MULTILINE | ES_READONLY,
+                                 20, 60, 300, 200, hWnd, NULL, GetModuleHandle(NULL), NULL);
+            break;
+        case WM_COMMAND:
+            if (LOWORD(wParam) == ID_BUTTON_SCAN) {
+                RunSecurityCheck(hWnd);
+            }
+            break;
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    return 0;
+}
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+    WNDCLASS wc = {0};
+    wc.lpfnWndProc = WndProc;
+    wc.hInstance = hInstance;
+    wc.lpszClassName = "SecurityTester";
+    RegisterClass(&wc);
+    
+    HWND hWnd = CreateWindow(wc.lpszClassName, "Security Tester XP", WS_OVERLAPPEDWINDOW,
+                             CW_USEDEFAULT, CW_USEDEFAULT, 360, 320,
+                             NULL, NULL, hInstance, NULL);
+    
+    if (hWnd) {
+        ShowWindow(hWnd, nCmdShow);
+        UpdateWindow(hWnd);
+        MSG msg;
+        while (GetMessage(&msg, NULL, 0, 0)) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
+    }
+    return 0;
+}
