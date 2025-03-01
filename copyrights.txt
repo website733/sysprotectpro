@@ -1,0 +1,16 @@
+Copyrights & License
+
+© 2025 GoWebApp. Tous droits réservés.
+
+Ce logiciel, SysProtectPro, est conçu pour analyser la sécurité des systèmes Windows.
+
+Licence d'utilisation
+
+  Ce programme est fourni "tel quel", sans aucune garantie implicite ou explicite.
+L'utilisation de ce logiciel est autorisée à des fins légales uniquement.
+Toute modification, distribution ou reproduction non autorisée est interdite sans l'accord du détenteur des droits.
+
+  Responsabilité
+L'auteur de SysProtect Pro ne pourra être tenu responsable d'un usage inapproprié ou des conséquences liées à l'exécution de ce programme sur un système informatique.
+
+Pour toute question ou demande de licence commerciale, contactez sysprotectpro@mbox.re.
