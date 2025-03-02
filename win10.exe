@@ -1,5 +1,6 @@
 import sys
 import os
+import platform
 import hashlib
 import secrets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget, QTextEdit, QFileDialog, QHBoxLayout
@@ -20,7 +21,8 @@ class SysProtectPro(QMainWindow):
         
         layout = QVBoxLayout()
         
-        self.label = QLabel("\U0001F512 SysProtectPro - Protection Avancée", self)
+        os_version = platform.system() + " " + platform.release()
+        self.label = QLabel(f"\U0001F512 SysProtectPro - Protection Avancée\nSystème détecté : {os_version}", self)
         self.label.setFont(QFont("Arial", 14, QFont.Bold))
         self.label.setAlignment(Qt.AlignCenter)
         layout.addWidget(self.label)
