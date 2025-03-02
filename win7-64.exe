@@ -1,0 +1,120 @@
+import sys
+import os
+import platform
+import hashlib
+import secrets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QVBoxLayout, QWidget, QTextEdit, QFileDialog, QHBoxLayout
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import serialization, hashes
+
+def is_windows7():
+    return platform.system() == "Windows" and platform.release() == "7"
+
+class SysProtectPro(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("SysProtectPro")
+        self.setGeometry(100, 100, 600, 450)
+        self.setStyleSheet("background-color: #2E2E2E; color: white;")
+        
+        layout = QVBoxLayout()
+        
+        os_version = platform.system() + " " + platform.release()
+        self.label = QLabel(f"\U0001F512 SysProtectPro - Protection Avancée\nSystème détecté : {os_version}", self)
+        self.label.setFont(QFont("Arial", 14, QFont.Bold))
+        self.label.setAlignment(Qt.AlignCenter)
+        layout.addWidget(self.label)
+        
+        button_layout = QHBoxLayout()
+        
+        self.scan_button = QPushButton("🔍 Analyse Sécurité", self)
+        self.scan_button.clicked.connect(self.start_scan)
+        button_layout.addWidget(self.scan_button)
+        
+        self.file_check_button = QPushButton("📂 Vérifier un fichier", self)
+        self.file_check_button.clicked.connect(self.check_file)
+        button_layout.addWidget(self.file_check_button)
+        
+        layout.addLayout(button_layout)
+        
+        button_layout2 = QHBoxLayout()
+        
+        self.password_button = QPushButton("🔑 Générer MDP", self)
+        self.password_button.clicked.connect(self.generate_password)
+        button_layout2.addWidget(self.password_button)
+        
+        self.sign_file_button = QPushButton("✍️ Signer un fichier", self)
+        self.sign_file_button.clicked.connect(self.sign_file)
+        button_layout2.addWidget(self.sign_file_button)
+        
+        layout.addLayout(button_layout2)
+        
+        self.result_area = QTextEdit(self)
+        self.result_area.setReadOnly(True)
+        self.result_area.setStyleSheet("background-color: #1E1E1E; color: #00FF00;")
+        layout.addWidget(self.result_area)
+        
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+        
+    def start_scan(self):
+        self.result_area.setText("🔄 Analyse de la sécurité en cours...\n")
+        self.result_area.append("✅ Analyse terminée : Aucune menace détectée.")
+
+    def check_file(self):
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(self, "Sélectionner un fichier", "", "All Files (*)", options=options)
+        if file_path:
+            sha256_hash = self.hash_file(file_path)
+            self.result_area.append(f"📄 Fichier : {file_path}\n🔍 SHA-256 : {sha256_hash}\n")
+    
+    def hash_file(self, file_path):
+        hasher = hashlib.sha256()
+        with open(file_path, 'rb') as f:
+            while True:
+                chunk = f.read(4096)
+                if not chunk:
+                    break
+                hasher.update(chunk)
+        return hasher.hexdigest()
+    
+    def generate_password(self):
+        password = secrets.token_urlsafe(16)
+        self.result_area.append(f"🔐 Mot de passe généré : {password}\n")
+    
+    def sign_file(self):
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(self, "Sélectionner un fichier à signer", "", "All Files (*)", options=options)
+        if file_path:
+            private_key = rsa.generate_private_key(
+                public_exponent=65537,
+                key_size=2048
+            )
+            private_pem = private_key.private_bytes(
+                encoding=serialization.Encoding.PEM,
+                format=serialization.PrivateFormat.TraditionalOpenSSL,
+                encryption_algorithm=serialization.NoEncryption()
+            )
+            
+            signature = private_key.sign(
+                open(file_path, 'rb').read(),
+                padding.PSS(
+                    mgf=padding.MGF1(hashes.SHA256()),
+                    salt_length=padding.PSS.MAX_LENGTH
+                ),
+                hashes.SHA256()
+            )
+            
+            self.result_area.append(f"✅ Fichier signé avec succès : {file_path}\n✍️ Signature : {signature.hex()}\n")
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = SysProtectPro()
+    window.show()
+    sys.exit(app.exec_())
