@@ -3,7 +3,7 @@ MENTIONS LÉGALES – SYSProtectPro
 SysProtectPro est un logiciel édité par GoWebApp, une entreprise spécialisée dans le développement d'applications sécurisées.
 
 Site web officiel :
-https://gwa.nekoweb.org/
+https://gwa.nekoweb.org/sysprotectpro
 
 Responsable de la publication :
 GoWebApp – Contact : gwa@tensi.org
