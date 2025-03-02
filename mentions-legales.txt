@@ -1,0 +1,32 @@
+MENTIONS LÉGALES – SYSProtectPro
+Éditeur du logiciel :
+SysProtectPro est un logiciel édité par GoWebApp, une entreprise spécialisée dans le développement d'applications sécurisées.
+
+Site web officiel :
+https://gwa.nekoweb.org/
+
+Responsable de la publication :
+GoWebApp – Contact : gwa@tensi.org
+
+Hébergement :
+Le site officiel est hébergé par NekoWeb, accessible à l'adresse https://nekoweb.org.
+
+1. OBJET
+Le logiciel SysProtectPro est conçu pour améliorer la sécurité des ordinateurs sous Windows 10. Il inclut des fonctionnalités de vérification de fichiers, un générateur de mots de passe sécurisés et un système de signature de fichiers.
+
+2. PROPRIÉTÉ INTELLECTUELLE
+L’ensemble des éléments du logiciel, y compris son interface graphique, son code source et ses fonctionnalités, est protégé par les lois en vigueur sur la propriété intellectuelle. Toute reproduction, modification ou distribution non autorisée est interdite.
+
+3. RESPONSABILITÉ
+L’utilisation de SysProtectPro se fait sous la responsabilité de l’utilisateur. GoWebApp ne pourra être tenu responsable des éventuels dommages résultant de son usage, notamment en cas de mauvaise configuration ou d’utilisation inappropriée.
+
+4. COLLECTE DE DONNÉES
+Le logiciel n’exploite aucune base de données et ne collecte aucune information personnelle. Aucune donnée utilisateur n’est stockée ni partagée avec des tiers.
+
+5. CONDITIONS D’UTILISATION
+En installant et en utilisant SysProtectPro, l’utilisateur accepte les présentes mentions légales et s’engage à utiliser le logiciel conformément à la réglementation en vigueur.
+
+6. CONTACT
+Pour toute question ou assistance, vous pouvez contacter l’équipe de SysProtectPro à l’adresse suivante :
+📧 sysprotectpro@mbox.re
+
