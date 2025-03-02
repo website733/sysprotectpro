@@ -7,19 +7,23 @@ Le logiciel SysProtectPro est conçu pour garantir la confidentialité et la sé
 Données collectées : Aucune
 Cookies et traceurs : Aucun
 Accès aux fichiers : SysProtectPro analyse les fichiers uniquement sur demande de l’utilisateur et ne conserve aucun rapport après fermeture du logiciel.
+
 2. FINALITÉ DU TRAITEMENT
 Le logiciel fonctionne localement sur l’ordinateur de l’utilisateur et n’envoie aucune information à des serveurs distants. Toutes les analyses, la génération de mots de passe et la signature de fichiers s’effectuent sans transmission de données externes.
+
 
 3. PARTAGE DES DONNÉES
 SysProtectPro ne partage aucune donnée avec des tiers.
 Aucun service externe ou cloud n’est utilisé.
 Les utilisateurs conservent l’entière maîtrise des informations traitées par le logiciel.
+
 4. SÉCURITÉ DES DONNÉES
 SysProtectPro applique des mesures de sécurité avancées pour éviter toute fuite ou compromission des fichiers traités :
 
 Chiffrement local des opérations sensibles.
 Aucune conservation des fichiers scannés ou signés.
 Aucune connexion Internet requise pour utiliser les fonctionnalités principales.
+
 5. DROITS DES UTILISATEURS
 Conformément aux réglementations en vigueur (RGPD, loi Informatique et Libertés), les utilisateurs bénéficient des droits suivants :
 
@@ -30,5 +34,5 @@ Conformément aux réglementations en vigueur (RGPD, loi Informatique et Libert�
 6. CONTACT
 Pour toute question sur la protection des données, vous pouvez contacter l’éditeur du logiciel :
 
-📧 support@gwa.nekoweb.org
+📧 gwa@tensi.org
 
